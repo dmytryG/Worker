@@ -1,0 +1,222 @@
+/*
+
+BG-black - 50, 48, 49 / 323031
+Text-while - 251, 251, 251 / FBFBFB
+Purple - 83, 28, 179 / 531CB3
+Pink - 238, 66, 102 / EE4266
+Blue - 60, 187, 177 / 3CBBB1
+
+
+ */
+
+@font-face {
+    font-family: 'InjusticeDemo';
+    src: url('/assets/InjusticeDemo.ttf');
+}
+
+body {
+    font-family: "Trebuchet", Trebuchet, sans-serif;
+    font-size: 18px;
+    font-weight: 200;
+    background-color: #323031;
+    color: #FBFBFB;
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+    padding: 20px 0;
+    text-align: center;
+    line-height: 100%;
+}
+
+.logo h1 a {
+    font-family: InjusticeDemo;
+    color: #FBFBFB;
+    text-decoration: none;
+}
+
+.footer {
+    padding: 20px 0;
+    text-align: center;
+    line-height: 100%;
+}
+
+.footer h1 a {
+    font-family: InjusticeDemo;
+    color: #FBFBFB;
+    text-decoration: none;
+}
+
+
+.logo h1 a:hover {
+    color: #3CBBB1;
+    transition: all 500ms ease;
+}
+
+a {
+    color: #3CBBB1;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.contentBlock {
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    border-color: #FBFBFB;
+    border-width: 1px;
+    border-style: solid;
+}
+.contentHeader {
+    color: white;
+    margin-bottom: 10px;
+}
+.contentContent {
+
+}
+.important {
+    background-color: #531CB3;
+}
+
+.navigation {
+    width: 100%;
+    text-align: center;
+}
+.navigation li {
+    display: inline;
+    padding: 0 20px;
+}
+.navItem {
+
+}
+.pink {
+    background-color: #EE4266;
+}
+.blue {
+    background-color: #3CBBB1;
+}
+.color-black {
+    color: #323031;
+}
+
+.righten {
+    float: right;
+}
+
+.smallButton a {
+    border-radius: 3px;
+    margin: 5px;
+    padding: 10px;
+    border-color: #FBFBFB;
+    color: #FBFBFB;
+    border-width: 1px;
+    display: inline;
+    border-style: solid;
+    background-color: #531CB3;
+    text-align: center;
+    transition: all 500ms ease;
+}
+.smallButton a:hover {
+    text-decoration: none;
+    border-radius: 3px;
+    margin: 5px;
+    padding: 10px;
+    border-color: #3CBBB1;
+    border-width: 1px;
+    display: inline;
+    border-style: solid;
+    background-color: #531CB3;
+    text-align: center;
+    transition: all 500ms ease;
+}
+
+.bigButton a {
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    border-color: #FBFBFB;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #531CB3;
+    display: block;
+    text-align: center;
+    transition: all 500ms ease;
+}
+.bigButton a:hover {
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    border-color: #FBFBFB;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #3CBBB1;
+    color: #323031;
+    transition: all 500ms ease;
+}
+
+.right_flex {
+    display: flex;
+    align-items: top;
+    justify-content: right;
+}
+.flex-item-right {
+    display: block;
+    align-self: stretch;
+    background-color: #2F4F4F;
+}
+
+.half-sized {
+    width: 50%;
+}
+.centred {
+    display: flex;
+    justify-content: center;
+}
+
+.grid-vertical {
+    display: grid;
+}
+.grid-vertical-item {
+
+}
+
+.from-fields {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.from-fields label {
+    color: #FBFBFB;
+    width: 100%;
+}
+
+.from-fields input {
+    margin-top: 10px;
+    background-color: #323031;
+    color: #FBFBFB;
+    width: 100%;
+    font-size: 110%;
+    border-radius: 10px;
+    border-color: #531CB3;
+}
+
+.from-fields select {
+    margin-top: 10px;
+    background-color: #323031;
+    color: #FBFBFB;
+    width: 102%;
+    font-size: 110%;
+    border-radius: 10px;
+    border-color: #531CB3;
+}
+.from-fields textarea {
+    margin-top: 10px;
+    background-color: #323031;
+    color: #FBFBFB;
+    width: 102%;
+    font-size: 110%;
+    border-radius: 10px;
+    border-color: #531CB3;
+}
