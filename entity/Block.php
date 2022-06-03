@@ -281,5 +281,87 @@ class TaskBlock extends ContentBlock {
 
 }
 
+class ReportBlock extends Block {
+    protected $report;
+    protected $comments;
+    protected $task_id;
+    protected $is_commentable;
+
+    /**
+     * @param $report
+     * @param $comments
+     */
+    public function __construct($report, $comments, $task_id, $is_commentable = false)
+    {
+        $this->report = $report;
+        $this->comments = $comments;
+        $this->task_id = $task_id;
+        $this->is_commentable = $is_commentable;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReport()
+    {
+        return $this->report;
+    }
+
+    /**
+     * @param mixed $report
+     */
+    public function setReport($report): void
+    {
+        $this->report = $report;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments): void
+    {
+        $this->comments = $comments;
+    }
+
+
+    public function __toString()
+    {
+        $res =  "<div class=\"".$this->getStyle()."\">
+            Звіт <a href='/getReport?filename=".$this->report->getFilename()."'>".$this->report->getFilename()."</a>";
+
+        foreach ($this->comments as $comment) {
+            $res = $res .
+                "<div class='contentBlock'>
+                    Коментар: ".$comment->getMessage()."
+                </div>";
+        }
+        if ($this->is_commentable) {
+            $res = $res .
+                "<div class='contentBlock from-fields-small'>
+                <form action='/showTask.php?id=" . $this->task_id
+                . "&reportId=" . $this->report->getId() . "' method=\"post\" >
+                
+                <label for=\"comment\">Коментар до звіту:</label><br>
+                <textarea id=\"comment\" name=\"comment\"></textarea><br>
+                <input type=\"submit\" value=\"Додати коментар\">
+                </form>
+            </div>";
+        }
+
+        $res = $res . "<div class='righten'>". $this->report->getDate() ." </div>";
+
+        $res = $res . "</div>";
+        return $res;
+    }
+
+}
 ?>
 

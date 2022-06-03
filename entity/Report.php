@@ -5,22 +5,19 @@ class Report {
     protected $taskId; // Id of linked task
     protected $filename; // Generated name of report file
     protected $date; // DateTime of sending
-    protected $status; // Numeric value (new, cancelled, proved)
 
     /**
      * @param $Id
      * @param $taskId
      * @param $filename
      * @param $date
-     * @param $status
      */
-    public function __construct($Id, $taskId, $filename, $date, $status)
+    public function __construct($Id, $taskId, $filename, $date)
     {
         $this->Id = $Id;
         $this->taskId = $taskId;
         $this->filename = $filename;
         $this->date = $date;
-        $this->status = $status;
     }
 
 
@@ -88,27 +85,11 @@ class Report {
         $this->date = $date;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param mixed $status
-     */
-    public function setStatus($status): void
-    {
-        $this->status = $status;
-    }
-
     public function __toString()
     {
         return "Report: (id: " . $this->Id . ", task(Id): "
             . $this->taskId . ", filename: " . $this->filename . ", date: ".
-            $this->date . ", status: " . $this->status . ")";
+            $this->date . ")";
     }
 }
 

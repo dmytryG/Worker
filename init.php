@@ -2,12 +2,8 @@
 
     include_once 'database/MySQL.php';
 
-    try {
-        $mySql = new MySQL();
-        $mySql->create_tables();
-    } catch (Exception $ex) {
-        my_log("Exception: " . $ex->getMessage());
-    }
+    $mySql = new MySQL();
+    $mySql->create_tables();
 
 //
 //    try {

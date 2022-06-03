@@ -17,8 +17,17 @@
     $blocks = array();
     $db = new MySQL();
 
-    if ($isLoggedIn) {
+    if (isset($_POST["comment"])) {
         try {
+            $db->add_comment_raw($task_id, $_GET["reportId"], $_POST["comment"]);
+        } catch (Exception $ex) {
+            $blocks[] = new CustomBlock("Вибачте, неможливо додати коментар,
+            будь ласка, спробуйте пізніше: ". $ex->getMessage(), "contentBlock pink");
+        }
+    }
+
+    if ($isLoggedIn) {
+        try { // load task by id
             $task = $db->get_task_with_status($task_id);
             $blocks[] = new TaskBlock($task->getHeader(),
                 $task->getDescription(), $task->getDatetime(), $task->getStatus(), $task->getId());
@@ -35,6 +44,14 @@
                     , "contentBlock inactive");
             }
 
+            $reports = $db->get_reports($task_id);
+
+            foreach ($reports as $report) {
+                $blocks[] = new ReportBlock
+                ($report, $db->get_comments_for_report($report->getId()), $task_id, $isEmployer);
+            }
+
+            // TODO: load form for adding reports
 
 
         } catch (Exception $ex){

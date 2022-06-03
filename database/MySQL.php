@@ -23,13 +23,14 @@ class MySQL {
 
     public function create_tables(): void {
         $statement = file_get_contents("res/tables.sql");
+        echo "Statement to be executed: " . $statement;
         if($statement) {
             $res = $this->connection->exec($statement);
-            if(!$res) {
+            if($res) {
                 my_log("DB successfully created");
             } else {
+                var_dump($this->connection->errorInfo());
                 my_log("DB error: " . var_dump($res));
-                throw new Exception("DB was not created");
             }
         } else {
             my_log("Error during reading DB file!");
@@ -249,6 +250,51 @@ class MySQL {
             return new Task($task["id"], $task["employee_id"], $task["employer_id"], $task["header"], $task["description"], $task["datetime"], $task["status"]);
         } else {
             throw new Exception("Task not found");
+        }
+    }
+
+    public function get_reports($task_id) {
+
+        include_once 'entity/Report.php';
+
+        $query = $this->connection->prepare("select * from reports where task_id = ?;");
+        $is_ok = $query->execute(array($task_id));
+        $reports = $query->fetchAll(PDO::FETCH_ASSOC);
+        $res = array();
+        if ($is_ok) {
+            foreach ($reports as $report) {
+                $res[] = new Report($report["id"], $report["task_id"], $report["filename"], $report["date"]);
+            }
+            return $res;
+        } else {
+            throw new Exception("Reports not found");
+        }
+    }
+
+    public function get_comments_for_report($task_id) {
+
+        include_once 'entity/Comment.php';
+
+        $query = $this->connection->prepare("select * from comments where report_id = ?;");
+        $is_ok = $query->execute(array($task_id));
+        $comments = $query->fetchAll(PDO::FETCH_ASSOC);
+        $res = array();
+        if ($is_ok) {
+            foreach ($comments as $comment) {
+                $res[] = new Comment($comment["id"], $comment["report_id"],
+                    $comment["task_id"], $comment["message"]);
+            }
+            return $res;
+        } else {
+            throw new Exception("Comments not found");
+        }
+    }
+
+    public function add_comment_raw($task_id, $report_id, $content) {
+        $query = $this->connection->prepare("insert into comments (report_id, task_id, message) values (?, ?, ?);");
+        $is_ok = $query->execute(array($report_id, $task_id, $content));
+        if (!$is_ok) {
+            throw new Exception("Cannot add comment");
         }
     }
 
