@@ -12,5 +12,6 @@
     $TASK_STATUS_NEW = "new";
     $TASK_STATUS_REVIEW = "review";
     $TASK_STATUS_COMPLETED = "completed";
+    $FILE_SAVE_PATH = "files/"
 
 ?>
