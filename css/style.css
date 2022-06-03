@@ -98,6 +98,7 @@ a:hover {
 .blue {
     background-color: #3CBBB1;
 }
+
 .color-black {
     color: #323031;
 }
@@ -219,4 +220,10 @@ a:hover {
     font-size: 110%;
     border-radius: 10px;
     border-color: #531CB3;
+}
+.inactive {
+    background-color: #444444;
+}
+.blue a {
+    color: #323031 !important;
 }

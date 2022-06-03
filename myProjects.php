@@ -23,7 +23,7 @@
             $projects = $db->get_tasks($user);
             foreach ($projects as $task) {
                 $blocks[] = new TaskBlock($task->getHeader(),
-                    $task->getDescription(), $task->getDatetime(), $task->getStatus());
+                    $task->getDescription(), $task->getDatetime(), $task->getStatus(), $task->getId());
             }
             if (count($projects) == 0) {
                 $blocks[] = new ContentBlock("В вас немає проектів", "На даний час для вашого облікового

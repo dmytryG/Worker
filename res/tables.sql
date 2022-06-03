@@ -65,7 +65,7 @@ CREATE TABLE `comments` (
     CONSTRAINT `task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `task_status` VALUES (1,'new'),(2,'cancelled'),(3,'completed');
+INSERT INTO `task_status` VALUES (1,'new'),(2,'review'),(2,'cancelled'),(3,'completed');
 INSERT INTO `user_status` VALUES (1,'employee'),(2,'employer');
 Insert into `users` (login, status_id) values ("Alex" , 1);
 Insert into `users` (login, status_id) values ("Valentin" , 2);

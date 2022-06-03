@@ -188,24 +188,62 @@ class CustomBlock extends Block {
 
 class TaskBlock extends ContentBlock {
     protected $datetime;
+    protected $status;
+    protected $id;
 
     /**
      * @param $datetime
      */
-    public function __construct($header, $content, $datetime, $status)
+    public function __construct($header, $content, $datetime, $status, $id)
     {
         include_once 'utils/Constants.php';
-        global $TASK_STATUS_NEW, $TASK_STATUS_COMPLETED;
+        global $TASK_STATUS_NEW, $TASK_STATUS_COMPLETED, $TASK_STATUS_REVIEW;
         $this->datetime = $datetime;
         $this->header = $header;
         $this->content = $content;
-        if($status == $TASK_STATUS_NEW) {
+        $this->id = $id;
+        $this->status = $status;
+        if($status == $TASK_STATUS_NEW || $status == $TASK_STATUS_REVIEW) {
             $this->is_important = true;
         }
         if ($status == $TASK_STATUS_COMPLETED) {
             $this->is_blue = true;
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status): void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+
 
     /**
      * @return mixed
@@ -228,11 +266,15 @@ class TaskBlock extends ContentBlock {
         return
             "<div class=\"".$this->getStyle()."\">
                     <div class=\"contentHeader\">
-                    ".$this->header."
+                    <a href = \"/showTask.php?id=".$this->id."\">".$this->header."</a>
                     </div>
                     <div class=\"contentContent\">
                     ".$this->content."
                     </div>
+                    <div class='righten'>".$this->datetime."</div>
+                    <br />
+                    <div class='righten'>".$this->status."</div>
+                    <br />
                 </div>"
             ;
     }

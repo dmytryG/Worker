@@ -10,6 +10,7 @@
     $EMPLOYEE_USER_STATUS = "employee";
     $EMPLOYER_USER_STATUS = "employer";
     $TASK_STATUS_NEW = "new";
+    $TASK_STATUS_REVIEW = "review";
     $TASK_STATUS_COMPLETED = "completed";
 
 ?>

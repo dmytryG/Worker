@@ -104,7 +104,7 @@ class MySQL {
         $is_ok = $query->execute(array($id));
         $task = $query->fetch(PDO::FETCH_ASSOC);
         if ($is_ok && isset($task["id"])) {
-            return new Task($task["id"], $task["employee_id"], $task["employer_id"], $task["header"], $task["description"]);
+            return new Task($task["id"], $task["employee_id"], $task["employer_id"], $task["header"], $task["description"], $task["datetime"], $task["status"]);
         } else {
             throw new Exception("Task not found");
         }
@@ -239,6 +239,18 @@ class MySQL {
         return $users;
     }
 
+    public function get_task_with_status($id): Task {
+        $query = $this->connection->prepare("select task.id, task.employee_id, 
+        task.employer_id, task.header, task.description, task.datetime, task_status.status 
+        from task left join task_status on task.status_id = task_status.id where task.id = ?;");
+        $is_ok = $query->execute(array($id));
+        $task = $query->fetch(PDO::FETCH_ASSOC);
+        if ($is_ok && isset($task["id"])) {
+            return new Task($task["id"], $task["employee_id"], $task["employer_id"], $task["header"], $task["description"], $task["datetime"], $task["status"]);
+        } else {
+            throw new Exception("Task not found");
+        }
+    }
 
 
 }
