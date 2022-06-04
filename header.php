@@ -20,6 +20,7 @@
             <li class="navItem"><a href="login.php" >Войти</a></li>
             <li class="navItem"><a href="myProjects.php" >Мои проекты</a></li>
             <li class="navItem"><a href="#contact">О проекте</a></li>
+            <li class="navItem"><a href="feedback.php">Зворотній зв’язок</a></li>
         </ul>
     </nav>
 </div>
