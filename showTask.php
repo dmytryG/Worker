@@ -63,6 +63,7 @@
                 $db->add_report_raw($task_id, $file_new_name);
                 $blocks[] = new CustomBlock("Звіт ". $file_new_name .
                     " успішно додано", "contentBlock blue");
+                $db->set_task_status($task_id, $TASK_STATUS_REVIEW);
             } else {
                 throw new Exception("Cannot save file");
             }

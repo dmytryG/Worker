@@ -2,45 +2,47 @@
 
 <div class="contentBlock">
     <div class="contentHeader">
-        Lorem ipsum dolor sit amet
+        Про проект
     </div>
     <div class="contentContent">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non nisi nisi. Nulla id iaculis nisl.
-    Praesent et cursus turpis, ut dictum orci. Class aptent taciti sociosqu ad litora torquent per conubia
-    nostra, per inceptos himenaeos. Nulla facilisis nibh quis elit euismod facilisis. Class aptent taciti
-    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc sed nunc est. Aliquam vel
-    erat nec neque euismod ullamcorper. Phasellus ante nulla, lobortis nec ex at, suscipit egestas sem. Nam
-    suscipit tellus quis lacus consequat eleifend. Cras commodo posuere orci, sed pellentesque nisi lobortis
-    ut. Pellentesque venenatis augue non arcu aliquam, et fermentum mi ultrices. Nunc vel posuere tellus, a
-    dictum lorem. In nec tincidunt erat, vel dictum orci.
+        Цей проект було розробив Дмитро Голуб у рамках курсового проекту з технологій комп’ютерного проектування.
+        Веб-додаток реалізує функціонал розподілу задач між виконавцями, а саме:
+        Керівник видає роботу виконавцям, про що у кожного виконавця в особовому кабінеті
+        з’являється персональне завдання. Виконавець виконує роботу та відправляє звіт
+        до цієї роботи. Керівник приймає або відхиляє звіт. Якщо звіт відхилено робітник
+        зобов'язаний виправити недоліки, та відправити звіт знову.
     </div>
 </div>
 
 <div class="contentBlock important">
     <div class="contentHeader">
-        Something important
+        Перелік функцій, що були реалізовані
     </div>
     <div class="contentContent">
-    Pellentesque aliquam ante id tempor pellentesque. Aliquam erat volutpat. Etiam sollicitudin eget urna sit amet
-    tristique. Sed in tincidunt eros, finibus placerat lectus. Vestibulum nec dolor et massa interdum finibus eget
-    nec lorem. Phasellus in lectus eget risus luctus tincidunt. Maecenas nisl ligula, dictum eu sagittis quis,
-    maximus nec magna. Mauris faucibus magna lorem, rutrum mollis mi ultricies eu. Curabitur et nisl nulla.
-    </div>
-</div>
-
-<div class="contentBlock">
-    <div class="contentHeader">
-        Lorem ipsum dolor sit amet
-    </div>
-    <div class="contentContent">
-    Nulla facilisi. Suspendisse potenti. Praesent porta purus vitae eleifend auctor. Suspendisse malesuada,
-    sapien sit amet sodales tristique, justo lectus malesuada metus, in malesuada nibh sem nec est. In
-    hac habitasse platea dictumst. Morbi enim velit, dapibus ut odio quis, posuere mollis felis. Nunc non
-    facilisis arcu, sit amet eleifend mauris. Fusce dapibus lorem sit amet dolor vehicula, eu lacinia tellus
-    iaculis. Donec vel leo vel neque eleifend posuere maximus at felis. Morbi mollis bibendum nisl et maximus.
-    Sed pretium odio dui, eu aliquam odio scelerisque id. Cras convallis vitae quam sed pharetra. Morbi
-    vehicula risus eget risus facilisis, ac posuere libero euismod. Interdum et malesuada fames ac ante
-    ipsum primis in faucibus.
+    <ul>
+        <li>Функції усіх користувачів
+            <ul>
+                <li>Вхід у систему (заглушка)</li>
+                <li>Форма зворотнього зв'язку</li>
+                <li>Перегляд загальної інформації</li>
+            </ul>
+        </li>
+        <li>Функції керівника
+            <ul>
+                <li>Створювати завдання та вказувати виконавця</li>
+                <li>Переглядат надісланих виконавцем звітів</li>
+                <li>Прийняття або відхилиння звітів</li>
+                <li>Коментування звітів</li>
+            </ul>
+        </li>
+        <li>Функції виконавця
+            <ul>
+                <li>Перегляд отриманих завдань</li>
+                <li>Надсилання звіту про виконане завдання</li>
+                <li>Перегляд коментарів керівника</li>
+            </ul>
+        </li>
+    </ul>
     </div>
 </div>
 

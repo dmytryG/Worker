@@ -177,6 +177,10 @@ a:hover {
     justify-content: center;
 }
 
+.lineral {
+    display: inline;
+}
+
 .grid-vertical {
     display: grid;
 }
@@ -252,4 +256,21 @@ a:hover {
 }
 .blue a {
     color: #323031 !important;
+}
+.filter-form-fields input{
+    border-color: #531CB3;
+    color: #FBFBFB;
+    background-color: #323031;
+    border-radius: 10px;
+    font-size: 90%;
+    padding: 0 10px;
+}
+
+.filter-form-fields select{
+    border-color: #531CB3;
+    color: #FBFBFB;
+    background-color: #323031;
+    border-radius: 10px;
+    font-size: 90%;
+    padding: 0 10px;
 }

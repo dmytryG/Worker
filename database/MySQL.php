@@ -183,27 +183,47 @@ class MySQL {
         }
     }
 
-    public function get_tasks(User $user): array {
-        global $EMPLOYEE_USER_STATUS, $EMPLOYER_USER_STATUS;
+    public function get_tasks(User $user, $filter): array {
+
+        global $EMPLOYEE_USER_STATUS, $EMPLOYER_USER_STATUS, $SORT_OLDER, $SORT_NEW, $SORT_COMPLETED, $SORT_REVIEW
+               , $TASK_STATUS_COMPLETED, $TASK_STATUS_REVIEW, $TASK_STATUS_NEW;
+
+        $sort_postfix = "order by datetime desc;";
+        $params = array($user->getUsername());
+        if ($filter != Null) {
+            if ($filter == $SORT_OLDER) {
+                $sort_postfix = "order by datetime asc";
+            } else if ($filter == $SORT_NEW) {
+                $sort_postfix = "and task_status.status = ?; ";
+                $params = array($user->getUsername(), $TASK_STATUS_NEW);
+            } else if ($filter == $SORT_REVIEW) {
+                $sort_postfix = "and task_status.status = ?; ";
+                $params = array($user->getUsername(), $TASK_STATUS_REVIEW);
+            } else if ($filter == $SORT_COMPLETED) {
+                $sort_postfix = "and task_status.status = ?; ";
+                $params = array($user->getUsername(), $TASK_STATUS_COMPLETED);
+            }
+        }
+
         if (is_numeric($user->getStatus())) {
             $user->setStatus($this->get_user_status($user->getUsername()));
         }
         if ($user->getStatus() == $EMPLOYEE_USER_STATUS) {
             $query = $this->connection->prepare("SELECT task.id, task.employee_id, task.employer_id, task.header, task.description, 
                 task.datetime, task_status.status  FROM task inner join task_status on task.status_id = task_status.id left join users 
-                on users.id = task.employee_id where users.login = ? order by datetime desc;");
+                on users.id = task.employee_id where users.login = ? " . $sort_postfix);
             my_log("User is employee");
         }
         else if ($user->getStatus() == $EMPLOYER_USER_STATUS) {
             $query = $this->connection->prepare("SELECT task.id, task.employee_id, task.employer_id, task.header, task.description, 
                 task.datetime, task_status.status  FROM task inner join task_status on task.status_id = task_status.id left join users 
-                on users.id = task.employer_id where users.login = ? order by datetime desc;");
+                on users.id = task.employer_id where users.login = ? " . $sort_postfix);
             my_log("User is employer");
         }
         else {
             throw new Exception("Invalid user status: " . $user->getStatus());
         }
-        $is_ok = $query->execute(array($user->getUsername()));
+        $is_ok = $query->execute($params);
 
         if($is_ok) {
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -218,6 +238,7 @@ class MySQL {
             return $tasks;
         }
         else {
+            var_dump($this->connection->errorInfo(), $is_ok);
             throw new Exception("Can't get user's projects");
         }
     }

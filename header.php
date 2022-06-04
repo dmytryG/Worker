@@ -16,10 +16,9 @@
 <div class="navigation">
     <nav>
         <ul>
-            <li class="navItem"><a href="index.php" >Домашняя</a></li>
-            <li class="navItem"><a href="login.php" >Войти</a></li>
-            <li class="navItem"><a href="myProjects.php" >Мои проекты</a></li>
-            <li class="navItem"><a href="#contact">О проекте</a></li>
+            <li class="navItem"><a href="index.php" >Головна</a></li>
+            <li class="navItem"><a href="login.php" >Увійти</a></li>
+            <li class="navItem"><a href="myProjects.php" >Мої задачі</a></li>
             <li class="navItem"><a href="feedback.php">Зворотній зв’язок</a></li>
         </ul>
     </nav>

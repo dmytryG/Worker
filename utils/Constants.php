@@ -12,6 +12,12 @@
     $TASK_STATUS_NEW = "new";
     $TASK_STATUS_REVIEW = "review";
     $TASK_STATUS_COMPLETED = "completed";
-    $FILE_SAVE_PATH = "files/"
+    $FILE_SAVE_PATH = "files/";
+
+    $SORT_NEWER = "newer";
+    $SORT_OLDER = "older";
+    $SORT_NEW = "new";
+    $SORT_COMPLETED = "completed";
+    $SORT_REVIEW = "review";
 
 ?>

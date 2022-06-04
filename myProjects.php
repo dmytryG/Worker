@@ -10,7 +10,13 @@
     $isLoggedIn = isset($_COOKIE["login"]) && isset($_COOKIE["user_status"]);
     $blocks = array();
     $db = new MySQL();
+    $filter = Null;
+    if (isset($_POST["filter"])) {
+        $filter = $_POST["filter"];
+    }
+
     if ($isLoggedIn) {
+        include_once 'forms/sortingForm.php';
         global $EMPLOYER_USER_STATUS;
         if($_COOKIE["user_status"] === $EMPLOYER_USER_STATUS) {
             $blocks[] = new CustomBlock("
@@ -20,7 +26,7 @@
 
         try {
             $user = $db->get_user($_COOKIE["login"]);
-            $projects = $db->get_tasks($user);
+            $projects = $db->get_tasks($user, $filter);
             foreach ($projects as $task) {
                 $blocks[] = new TaskBlock($task->getHeader(),
                     $task->getDescription(), $task->getDatetime(), $task->getStatus(), $task->getId());
