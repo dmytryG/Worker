@@ -65,6 +65,15 @@ CREATE TABLE `comments` (
     CONSTRAINT `task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `feedbacks` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `email` varchar(128) NOT NULL,
+    `feedback` tinytext NOT NULL,
+    `datetime` datetime DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
 INSERT INTO `task_status` VALUES (1,'new'),(2,'review'),(3,'completed');
 INSERT INTO `user_status` VALUES (1,'employee'),(2,'employer');
 Insert into `users` (login, status_id) values ("Alex" , 1);

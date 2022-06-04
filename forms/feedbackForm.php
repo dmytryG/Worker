@@ -1,11 +1,11 @@
 <div class="centred contentBlock">
 
     <div class="half-sized grid-vertical">
-        <form action="/addTask.php">
+        <form action="/feedback.php" method="post">
             <div class="grid-vertical-item from-fields">
                 <label for="email">E-mail:</label><br>
                 <input type="text" id="email" name="email" value="<?php
-                    if(isset($_GET["email"])) {echo ($_GET["email"]);}
+                    if(isset($_POST["email"])) {echo ($_POST["email"]);}
                 ?>">
             </div>
 

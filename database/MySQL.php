@@ -316,6 +316,32 @@ class MySQL {
         }
     }
 
+    public function add_feedback($email, $feedback) {
+        $query = $this->connection->prepare("insert into feedbacks (email, feedback) values (?, ?);");
+        $is_ok = $query->execute(array($email, $feedback));
+        if (!$is_ok) {
+            throw new Exception("Cannot add feedback");
+        }
+    }
+
+    public function get_feedback() {
+
+        include_once 'entity/Feedback.php';
+
+        $query = $this->connection->prepare("SELECT * FROM worker.feedbacks order by datetime desc;");
+        $is_ok = $query->execute();
+        $feedbacks = $query->fetchAll(PDO::FETCH_ASSOC);
+        $res = array();
+        if ($is_ok) {
+            foreach ($feedbacks as $feedback) {
+                $res[] = new Feedback($feedback["id"], $feedback["email"], $feedback["feedback"], $feedback["datetime"]);
+            }
+            return $res;
+        } else {
+            throw new Exception("Feedbacks not found");
+        }
+    }
+
 }
 
 ?>
