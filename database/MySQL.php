@@ -306,6 +306,15 @@ class MySQL {
         }
     }
 
+    public function set_task_status($task_id, $status_name) {
+        $query = $this->connection->prepare("update task set status_id = 
+            (select id from task_status where status = ?) 
+            where id = ?;");
+        $is_ok = $query->execute(array($status_name, $task_id));
+        if (!$is_ok) {
+            throw new Exception("Cannot update status");
+        }
+    }
 
 }
 

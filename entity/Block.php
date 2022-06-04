@@ -203,11 +203,10 @@ class TaskBlock extends ContentBlock {
         $this->content = $content;
         $this->id = $id;
         $this->status = $status;
-        if($status == $TASK_STATUS_NEW || $status == $TASK_STATUS_REVIEW) {
-            $this->is_important = true;
-        }
-        if ($status == $TASK_STATUS_COMPLETED) {
+        if($status == $TASK_STATUS_NEW) {
             $this->is_blue = true;
+        } else if ($status == $TASK_STATUS_REVIEW) {
+            $this->is_important = true;
         }
     }
 
@@ -259,6 +258,20 @@ class TaskBlock extends ContentBlock {
     public function setDatetime($datetime): void
     {
         $this->datetime = $datetime;
+    }
+
+    public function getStyle() {
+        $res = $this->base_class;
+        if ($this->is_important) {
+            $res = $res . " important";
+        }
+        if ($this->is_blue) {
+            $res = $res . " blue";
+        }
+        if ($this->is_pink) {
+            $res = $res . " pink";
+        }
+        return $res;
     }
 
     public function __toString()
@@ -346,7 +359,7 @@ class ReportBlock extends Block {
         if ($this->is_commentable) {
             $res = $res .
                 "<div class='contentBlock from-fields-small'>
-                <form action='/showTask.php?id=" . $this->task_id
+                <form action='/showTask.php?approve=false&id=" . $this->task_id
                 . "&reportId=" . $this->report->getId() . "' method=\"post\" >
                 
                 <label for=\"comment\">Коментар до звіту:</label><br>

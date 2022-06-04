@@ -7,22 +7,44 @@
     include_once 'entity/User.php';
     include_once 'utils/Constants.php';
 
-    global $EMPLOYER_USER_STATUS, $TASK_STATUS_COMPLETED, $FILE_SAVE_PATH;
+    global $EMPLOYER_USER_STATUS, $TASK_STATUS_COMPLETED, $FILE_SAVE_PATH, $TASK_STATUS_COMPLETED, $TASK_STATUS_REVIEW;
     $isLoggedIn = isset($_COOKIE["login"]) && isset($_COOKIE["user_status"]);
-    $isApproved = isset($_GET["approve"]) && $_GET["approve"] == true;
-    $isChangesRequired = isset($_GET["approve"]) && $_GET["approve"] == false;
+    $isApproved = isset($_GET["approve"]) && $_GET["approve"] === "true";
+    $isChangesRequired = isset($_GET["approve"]) && $_GET["approve"] === "false";
     $task_id = $_GET["id"];
     if(isset($_COOKIE["approve"])) { header('Location: /showTask.php'); }
     $isEmployer = $_COOKIE["user_status"] === $EMPLOYER_USER_STATUS;
     $blocks = array();
     $db = new MySQL();
+    $isTaskActive = false;
 
     if (isset($_POST["comment"])) {
         try {
             $db->add_comment_raw($task_id, $_GET["reportId"], $_POST["comment"]);
+
         } catch (Exception $ex) {
             $blocks[] = new CustomBlock("Вибачте, неможливо додати коментар,
             будь ласка, спробуйте пізніше: ". $ex->getMessage(), "contentBlock pink");
+        }
+    }
+
+    if ($isApproved) {
+        try {
+            $db->set_task_status($task_id, $TASK_STATUS_COMPLETED);
+            $blocks[] = new CustomBlock("Статус завдання змінено на ". $TASK_STATUS_COMPLETED, "contentBlock blue");
+        } catch (Exception $ex) {
+            $blocks[] = new CustomBlock("Вибачте, неможливо оновити статус задачі,
+            будь ласка, спробуйте пізніше: ". $ex->getMessage(), "contentBlock pink");
+        }
+    }
+
+    if ($isChangesRequired) {
+        try {
+            $db->set_task_status($task_id, $TASK_STATUS_REVIEW);
+            $blocks[] = new CustomBlock("Статус завдання змінено на ". $TASK_STATUS_REVIEW, "contentBlock blue");
+        } catch (Exception $ex) {
+            $blocks[] = new CustomBlock("Вибачте, неможливо оновити статус задачі,
+                будь ласка, спробуйте пізніше: ". $ex->getMessage(), "contentBlock pink");
         }
     }
 
@@ -57,6 +79,11 @@
     if ($isLoggedIn) {
         try { // load task by id
             $task = $db->get_task_with_status($task_id);
+
+            if ($task->getStatus() != $TASK_STATUS_COMPLETED) {
+                $isTaskActive = true;
+            }
+
             $blocks[] = new TaskBlock($task->getHeader(),
                 $task->getDescription(), $task->getDatetime(), $task->getStatus(), $task->getId());
 
@@ -79,8 +106,9 @@
 
             foreach ($reports as $report) {
                 $blocks[] = new ReportBlock
-                ($report, $db->get_comments_for_report($report->getId()), $task_id, $isEmployer);
+                ($report, $db->get_comments_for_report($report->getId()), $task_id, $isEmployer && $isTaskActive);
             }
+
 
             // TODO: load form for adding reports
 
@@ -107,7 +135,7 @@
 <?php endforeach ?>
 
 <?php
- if($isLoggedIn && !$isEmployer) {
+ if($isLoggedIn && !$isEmployer && $isTaskActive) {
      include_once 'forms/addReport.php';
  }
 ?>
