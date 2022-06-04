@@ -13,7 +13,7 @@ CREATE TABLE `users` (
     PRIMARY KEY (`id`,`login`),
     UNIQUE KEY `id_UNIQUE` (`id`),
     UNIQUE KEY `login_UNIQUE` (`login`),
-    KEY `status_id_idx` (`status_id`)
+    CONSTRAINT `status_id` FOREIGN KEY (`status_id`) REFERENCES `user_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `task_status` (
@@ -38,7 +38,7 @@ CREATE TABLE `task` (
     KEY `status_id_idx` (`status_id`),
     CONSTRAINT `employee_id` FOREIGN KEY (`employee_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `employer_id` FOREIGN KEY (`employer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `status_id` FOREIGN KEY (`status_id`) REFERENCES `task_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT `task_status_id` FOREIGN KEY (`status_id`) REFERENCES `task_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `reports` (
@@ -48,7 +48,7 @@ CREATE TABLE `reports` (
     `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     UNIQUE KEY `id_UNIQUE` (`id`),
-    KEY `task_id_idx` (`task_id`)
+    CONSTRAINT `task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `comments` (
@@ -62,7 +62,7 @@ CREATE TABLE `comments` (
     KEY `report_id_idx` (`report_id`),
     KEY `task_id_idx` (`task_id`),
     CONSTRAINT `report_id` FOREIGN KEY (`report_id`) REFERENCES `reports` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT `comment_task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `feedbacks` (
