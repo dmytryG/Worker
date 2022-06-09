@@ -319,9 +319,9 @@ class MySQL {
         }
     }
 
-    public function add_report_raw($task_id, $filenmae) {
+    public function add_report_raw($task_id, $filename) {
         $query = $this->connection->prepare("insert into reports (task_id, filename) value (?, ?);");
-        $is_ok = $query->execute(array($task_id, $filenmae));
+        $is_ok = $query->execute(array($task_id, $filename));
         if (!$is_ok) {
             throw new Exception("Cannot add report");
         }
