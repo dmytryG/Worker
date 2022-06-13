@@ -32,7 +32,7 @@
         } catch (Exception $ex) {
             $blocks[] = new ContentBlock("Помилка",
                 "Нажаль, сталась помилка під час отримання користувачів системи, 
-            буль-ласка, спробуйте пізніше: " . $ex);
+            буль-ласка, спробуйте пізніше: " . $ex->getMessage());
         }
     }
     $isLoggedIn = isset($_COOKIE["login"]) && isset($_COOKIE["user_status"]) && !$is_unlogging;

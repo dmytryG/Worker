@@ -1,27 +1,30 @@
 CREATE TABLE `user_status` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-    `status` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+    `status` varchar(45) NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    UNIQUE KEY `id_UNIQUE` (`id`),
+    UNIQUE KEY `status_UNIQUE` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `users` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `login` varchar(45) NOT NULL,
     `password` varchar(64) DEFAULT '',
     `status_id` int(10) unsigned NOT NULL,
-    PRIMARY KEY (`id`,`login`),
+    PRIMARY KEY (`id`),
     UNIQUE KEY `id_UNIQUE` (`id`),
     UNIQUE KEY `login_UNIQUE` (`login`),
+    KEY `status_id` (`status_id`),
     CONSTRAINT `status_id` FOREIGN KEY (`status_id`) REFERENCES `user_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `task_status` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-    `status` varchar(45) DEFAULT NULL,
+    `status` varchar(45) NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    UNIQUE KEY `id_UNIQUE` (`id`),
+    UNIQUE KEY `status_UNIQUE` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `task` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -39,17 +42,18 @@ CREATE TABLE `task` (
     CONSTRAINT `employee_id` FOREIGN KEY (`employee_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `employer_id` FOREIGN KEY (`employer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `task_status_id` FOREIGN KEY (`status_id`) REFERENCES `task_status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `reports` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `task_id` int(10) unsigned NOT NULL,
-    `filename` varchar(80) CHARACTER SET utf8 DEFAULT NULL,
-    `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `filename` varchar(80) NOT NULL,
+    `date` datetime DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     UNIQUE KEY `id_UNIQUE` (`id`),
+    KEY `task_id` (`task_id`),
     CONSTRAINT `task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `comments` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
