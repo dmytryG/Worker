@@ -7,7 +7,7 @@
     include_once 'entity/User.php';
     include_once 'utils/Constants.php';
 
-    global $EMPLOYER_USER_STATUS, $TASK_STATUS_COMPLETED, $FILE_SAVE_PATH, $TASK_STATUS_COMPLETED, $TASK_STATUS_REVIEW;
+    global $EMPLOYER_USER_STATUS, $TASK_STATUS_COMPLETED, $FILE_SAVE_PATH, $TASK_STATUS_COMPLETED, $TASK_STATUS_REVIEW, $TASK_STATUS_NEW;
     $isLoggedIn = isset($_COOKIE["login"]) && isset($_COOKIE["user_status"]);
     $isApproved = isset($_GET["approve"]) && $_GET["approve"] === "true";
     $isChangesRequired = isset($_GET["approve"]) && $_GET["approve"] === "false";
@@ -40,8 +40,8 @@
 
     if ($isChangesRequired) {
         try {
-            $db->set_task_status($task_id, $TASK_STATUS_REVIEW);
-            $blocks[] = new CustomBlock("Статус завдання змінено на ". $TASK_STATUS_REVIEW, "contentBlock blue");
+            $db->set_task_status($task_id, $TASK_STATUS_NEW);
+            $blocks[] = new CustomBlock("Статус завдання змінено на ". $TASK_STATUS_NEW, "contentBlock blue");
         } catch (Exception $ex) {
             $blocks[] = new CustomBlock("Вибачте, неможливо оновити статус задачі,
                 будь ласка, спробуйте пізніше: ". $ex->getMessage(), "contentBlock pink");
