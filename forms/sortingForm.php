@@ -7,7 +7,7 @@
                         <option value="older">Спочатку старі</option>
                         <option value="completed">Виконані</option>
                         <option value="new">Нові</option>
-                        <option value="review">Потребують правок</option>
+                        <option value="review">Перегляд</option>
                 </select>
                 <input type="submit" value="Сортувати/фільтрувати">
             </div>

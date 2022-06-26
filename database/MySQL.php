@@ -363,6 +363,23 @@ class MySQL {
         }
     }
 
+    public function get_best_employees()
+    {
+        include_once 'utils/Constants.php';
+        global $TASK_STATUS_COMPLETED;
+        $query = $this->connection->prepare("
+            select users.login, users.id, count(*) as finished from users 
+            inner join task on task.employee_id = users.id 
+            inner join task_status on task.status_id = task_status.id
+            where task_status.status = ?
+            group by users.id
+            order by finished desc;
+        ");
+        $query->execute(array($TASK_STATUS_COMPLETED));
+        $users = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $users;
+    }
+
 }
 
 ?>
